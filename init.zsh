@@ -73,7 +73,7 @@ EOF
 fi
 
 sudo xcode-select --install
-sudo softwareupdate --install-rosetta
+sudo softwareupdate --install-rosetta --agree-to-license
 
 if [[ $(uname -m) == "x86_64" ]]; then
   HOMEBREW_PREFIX="/usr/local"
@@ -85,8 +85,15 @@ if [ -f "$HOMEBREW_PREFIX/bin/brew" ]; then
   eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 fi
 
+if ! command -v brew &>/dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+fi
+
 brew install coreutils xz yq rename openssl readline sqlite3 asdf zimfw mas httpie git
 brew install --cask docker google-chrome jetbrains-toolbox visual-studio-code httpie-desktop
+
+. "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh"
 
 sed -i.bak "
 \|^[[:space:]]*fpath=($HOME/.docker/completions \\\$fpath)|{
