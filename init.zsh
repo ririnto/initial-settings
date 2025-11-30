@@ -33,11 +33,19 @@ fi
 cat << "EOF" > $HOME/.profile
 # -*- coding: utf-8 -*-
 
-export OLLAMA_MAX_LOADED_MODELS=2
-export OLLAMA_CONTEXT_LENGTH=8192
-export OLLAMA_NUM_PARALLEL=2
+export ANTHROPIC_API_KEY=""
+export ANTHROPIC_AUTH_TOKEN="test"
 export ANTHROPIC_BASE_URL="http://127.0.0.1:3456"
-export ANTHROPIC_AUTH_TOKEN="ignore-me"
+export API_TIMEOUT_MS="600000"
+export DISABLE_COST_WARNINGS="true"
+export DISABLE_TELEMETRY="true"
+export NO_PROXY="127.0.0.1"
+
+export OLLAMA_CONTEXT_LENGTH=8192
+export OLLAMA_MAX_LOADED_MODELS=2
+export OLLAMA_NUM_PARALLEL=2
+
+unset CLAUDE_CODE_USE_BEDROCK
 
 if [ $(uname -m) = "x86_64" ]; then
   HOMEBREW_PREFIX="/usr/local"
@@ -103,6 +111,10 @@ fi
 # Initialize modules.
 if [ -f ${ZIM_HOME}/init.zsh ]; then
   source ${ZIM_HOME}/init.zsh
+fi
+
+if command -v ccr &>/dev/null; then
+  eval "$(ccr activate)"
 fi
 EOF
 fi
