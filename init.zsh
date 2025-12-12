@@ -10,8 +10,6 @@ fi
 cat << "EOF" > $HOME/.default-cargo-crates
 exa
 hexyl
-hwatch
-ripgrep --features pcre2
 sd
 svgbob_cli
 xh
@@ -134,7 +132,7 @@ if ! command -v brew &>/dev/null; then
   eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 fi
 
-brew install asdf ast-grep bandwhich bat coreutils curl difftastic dust fd fzf git httpie jq mas openssl readline rename sqlite3 xz yq zimfw zsh
+brew install asdf ast-grep bandwhich bat coreutils curl difftastic dust fd fzf git httpie hwatch jq mas openssl readline rename ripgrep-all sqlite3 xz yq zimfw zsh
 brew install --cask docker google-chrome httpie-desktop jetbrains-toolbox visual-studio-code
 
 . "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh"
