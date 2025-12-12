@@ -48,16 +48,6 @@ export OLLAMA_MAX_LOADED_MODELS=2
 export OLLAMA_NUM_PARALLEL=2
 
 unset CLAUDE_CODE_USE_BEDROCK
-
-if [ $(uname -m) = "x86_64" ]; then
-  HOMEBREW_PREFIX="/usr/local"
-else
-  HOMEBREW_PREFIX="/opt/homebrew"
-fi
-
-if [ -f "$HOMEBREW_PREFIX/bin/brew" ]; then
-  eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-fi
 EOF
 
 if [ -f $HOME/.zimrc ]; then
@@ -88,6 +78,8 @@ if [ -f "$HOME/.profile" ]; then
 fi
 EOF
 fi
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 if ! grep -q "p10k-instant-prompt" "$HOME/.zshrc" 2>/dev/null; then
 cat >> $HOME/.zshrc << "EOF"
