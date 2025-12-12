@@ -8,12 +8,7 @@ if [ -f $HOME/.default-cargo-crates ]; then
   mv $HOME/.default-cargo-crates $HOME/.default-cargo-crates.bak.$(date +%Y%m%d%H%M%S)
 fi
 cat << "EOF" > $HOME/.default-cargo-crates
-bat
-bandwhich
-difftastic
 exa
-du-dust
-fd-find
 hexyl
 hwatch
 ripgrep --features pcre2
@@ -139,7 +134,7 @@ if ! command -v brew &>/dev/null; then
   eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 fi
 
-brew install asdf ast-grep bat coreutils curl fd fzf git httpie jq mas openssl readline rename sqlite3 xz yq zimfw zsh
+brew install asdf ast-grep bandwhich bat coreutils curl difftastic dust fd fzf git httpie jq mas openssl readline rename sqlite3 xz yq zimfw zsh
 brew install --cask docker google-chrome httpie-desktop jetbrains-toolbox visual-studio-code
 
 . "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh"
@@ -179,6 +174,10 @@ asdf install java $(asdf list all java | grep '^liberica-17\.' | sort -V | tail 
 asdf install java $(asdf list all java | grep '^liberica-21\.' | sort -V | tail -n 1)
 asdf install java $(asdf list all java | grep '^liberica-25\.' | sort -V | tail -n 1)
 asdf set -u java $(asdf list all java | grep '^liberica-21\.' | sort -V | tail -n 1)
+
+asdf plugin add perl
+asdf install perl $(asdf list all perl | grep -E '^[0-9]+(\.[0-9]+){1,2}$' | sort -V | tail -n 1)
+asdf set -u perl $(asdf list all perl | grep -E '^[0-9]+(\.[0-9]+){1,2}$' | sort -V | tail -n 1)
 
 # mkdir -p $HOME/Projects/local
 # mkdir -p $HOME/.minikube/certs
