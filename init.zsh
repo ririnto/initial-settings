@@ -16,7 +16,7 @@ du-dust
 fd-find
 hexyl
 hwatch
-ripgrep
+ripgrep --features pcre2
 sd
 svgbob_cli
 xh
@@ -175,6 +175,10 @@ asdf set -u golang $(asdf list all golang | grep -E '^[0-9]+(\.[0-9]+){1,2}$' | 
 asdf plugin add python
 asdf install python $(asdf list all python | grep -E '^3\.13(\.[0-9]+){0,1}$' | sort -V | tail -n 1)
 asdf set -u python $(asdf list all python | grep -E '^3\.13(\.[0-9]+){0,1}$' | sort -V | tail -n 1)
+
+asdf plugin add uv
+asdf install uv $(asdf list all uv | grep -E '^[0-9]+(\.[0-9]+){0,2}$' | sort -V | tail -n 1)
+asdf set -u uv $(asdf list all uv | grep -E '^[0-9]+(\.[0-9]+){0,2}$' | sort -V | tail -n 1)
 
 # mkdir -p $HOME/Projects/local
 # mkdir -p $HOME/.minikube/certs
