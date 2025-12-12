@@ -139,8 +139,8 @@ if ! command -v brew &>/dev/null; then
   eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 fi
 
-brew install coreutils xz yq rename openssl readline sqlite3 asdf zimfw mas httpie git
-brew install --cask docker google-chrome jetbrains-toolbox visual-studio-code httpie-desktop
+brew install asdf ast-grep bat coreutils curl fd fzf git httpie jq mas openssl readline rename sqlite3 xz yq zimfw zsh
+brew install --cask docker google-chrome httpie-desktop jetbrains-toolbox visual-studio-code
 
 . "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh"
 
@@ -172,8 +172,16 @@ asdf plugin add uv
 asdf install uv $(asdf list all uv | grep -E '^[0-9]+(\.[0-9]+){0,2}$' | sort -V | tail -n 1)
 asdf set -u uv $(asdf list all uv | grep -E '^[0-9]+(\.[0-9]+){0,2}$' | sort -V | tail -n 1)
 
+asdf plugin add java
+asdf install java $(asdf list all java | grep '^liberica-8u' | sort -V | tail -n 1)
+asdf install java $(asdf list all java | grep '^liberica-11\.' | sort -V | tail -n 1)
+asdf install java $(asdf list all java | grep '^liberica-17\.' | sort -V | tail -n 1)
+asdf install java $(asdf list all java | grep '^liberica-21\.' | sort -V | tail -n 1)
+asdf install java $(asdf list all java | grep '^liberica-25\.' | sort -V | tail -n 1)
+asdf set -u java $(asdf list all java | grep '^liberica-21\.' | sort -V | tail -n 1)
+
 # mkdir -p $HOME/Projects/local
 # mkdir -p $HOME/.minikube/certs
-# brew install glab gh minikube
+# brew install gh glab minikube
 # minikube start --embed-certs
 # wget -O $HOME/Downloads/Ollama.dmg https://ollama.com/download/Ollama.dmg
