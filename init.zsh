@@ -99,6 +99,10 @@ if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
   if [ -f "${ZIM_HOME}/init.zsh" ]; then
     source "${ZIM_HOME}/init.zsh"
   fi
+else
+  if [ -f /Users/rinto/.zim/modules/asdf/init.zsh ]; then
+    source /Users/rinto/.zim/modules/asdf/init.zsh
+  fi
 fi
 
 if command -v ccr &>/dev/null; then
