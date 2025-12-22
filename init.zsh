@@ -15,6 +15,8 @@ backup_if_exists() {
 
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+SUDO_KEEPALIVE_PID=$!
+trap 'kill "${SUDO_KEEPALIVE_PID}" 2>/dev/null || true' EXIT INT TERM HUP
 
 backup_if_exists "$HOME/.default-cargo-crates"
 cat << "EOF" > "$HOME/.default-cargo-crates"
@@ -54,6 +56,7 @@ zmodule ohmyzsh/ohmyzsh --root plugins/vim-interaction
 zmodule romkatv/powerlevel10k --use degit
 EOF
 
+mkdir -p "$HOME/.ssh"
 if [ ! -f "$HOME/.ssh/id_ed25519" ]; then
   ssh-keygen -t ed25519 -f "$HOME/.ssh/id_ed25519" -N ""
 fi
