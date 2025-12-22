@@ -1,12 +1,22 @@
 #!/usr/bin/env zsh
 # -*- coding: utf-8 -*-
 
+set -euo pipefail
+
+BACKUP_DIR="$HOME/.local/backup"
+mkdir -p "$BACKUP_DIR"
+
+backup_if_exists() {
+  local file_path="$1"
+  if [ -f "$file_path" ]; then
+    mv "$file_path" "$BACKUP_DIR/$(basename "$file_path").bak.$(date +%Y%m%d%H%M%S)"
+  fi
+}
+
 sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-if [ -f "$HOME/.default-cargo-crates" ]; then
-  mv "$HOME/.default-cargo-crates" "$HOME/.default-cargo-crates.bak.$(date +%Y%m%d%H%M%S)"
-fi
+backup_if_exists "$HOME/.default-cargo-crates"
 cat << "EOF" > "$HOME/.default-cargo-crates"
 exa
 hexyl
@@ -15,38 +25,22 @@ svgbob_cli
 xh
 EOF
 
-if [ -f "$HOME/.p10k.zsh" ]; then
-  mv "$HOME/.p10k.zsh" "$HOME/.p10k.zsh.bak.$(date +%Y%m%d%H%M%S)"
-fi
+backup_if_exists "$HOME/.p10k.zsh"
 cp "$(dirname "$0")/.p10k.zsh" "$HOME/.p10k.zsh"
 
-if [ -f "$HOME/.profile" ]; then
-  mv "$HOME/.profile" "$HOME/.profile.bak.$(date +%Y%m%d%H%M%S)"
-fi
+backup_if_exists "$HOME/.profile"
 cat << "EOF" > "$HOME/.profile"
 # -*- coding: utf-8 -*-
-
-export ANTHROPIC_API_KEY=""
-export ANTHROPIC_AUTH_TOKEN="test"
-export ANTHROPIC_BASE_URL="http://127.0.0.1:3456"
-export API_TIMEOUT_MS="600000"
-export DISABLE_COST_WARNINGS="true"
-export DISABLE_TELEMETRY="true"
-export NO_PROXY="127.0.0.1"
 
 export OLLAMA_CONTEXT_LENGTH=8192
 export OLLAMA_FLASH_ATTENTION=1
 export OLLAMA_KEEP_ALIVE=60m
 export OLLAMA_MAX_LOADED_MODELS=2
 export OLLAMA_NUM_PARALLEL=2
-
-unset CLAUDE_CODE_USE_BEDROCK
 EOF
 
-if [ -f "$HOME/.zimrc" ]; then
-  mv "$HOME/.zimrc" "$HOME/.zimrc.bak.$(date +%Y%m%d%H%M%S)"
-fi
-curl -o "$HOME/.zimrc" https://raw.githubusercontent.com/zimfw/zimfw/refs/heads/master/src/templates/zimrc
+backup_if_exists "$HOME/.zimrc"
+curl --fail --location --silent --show-error -o "$HOME/.zimrc" https://raw.githubusercontent.com/zimfw/zimfw/refs/heads/master/src/templates/zimrc
 
 cat << "EOF" >> "$HOME/.zimrc"
 zmodule asdf
@@ -119,8 +113,15 @@ fi
 EOF
 fi
 
-sudo xcode-select --install
-sudo softwareupdate --install-rosetta --agree-to-license
+if ! xcode-select -p >/dev/null 2>&1; then
+  xcode-select --install || true
+fi
+
+if [ "$(uname -m)" = "arm64" ]; then
+  if ! pkgutil --pkg-info com.apple.pkg.RosettaUpdateAuto >/dev/null 2>&1; then
+    sudo softwareupdate --install-rosetta --agree-to-license
+  fi
+fi
 
 if [ "$(uname -m)" = "x86_64" ]; then
   HOMEBREW_PREFIX="/usr/local"
@@ -142,6 +143,13 @@ brew install --cask docker google-chrome httpie-desktop jetbrains-toolbox visual
 
 . "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh"
 
+ensure_asdf_plugin() {
+  local plugin_name="$1"
+  if ! asdf plugin list | grep -qx "$plugin_name"; then
+    asdf plugin add "$plugin_name"
+  fi
+}
+
 sed -i.bak "
 \|^[[:space:]]*fpath=($HOME/.docker/completions \\\$fpath)|{
   N
@@ -150,27 +158,27 @@ sed -i.bak "
 }
 " "$HOME/.zshrc"
 
-asdf plugin add rust
+ensure_asdf_plugin rust
 asdf install rust "$(asdf list all rust | grep -E '^[0-9]+(\.[0-9]+){1,2}$' | sort -V | tail -n 1)"
 asdf set -u rust "$(asdf list all rust | grep -E '^[0-9]+(\.[0-9]+){1,2}$' | sort -V | tail -n 1)"
 
-asdf plugin add nodejs
+ensure_asdf_plugin nodejs
 asdf install nodejs "$(asdf list all nodejs | grep -E '^24(\.[0-9]+){1,2}$' | sort -V | tail -n 1)"
 asdf set -u nodejs "$(asdf list all nodejs | grep -E '^24(\.[0-9]+){1,2}$' | sort -V | tail -n 1)"
 
-asdf plugin add golang
+ensure_asdf_plugin golang
 asdf install golang "$(asdf list all golang | grep -E '^[0-9]+(\.[0-9]+){1,2}$' | sort -V | tail -n 1)"
 asdf set -u golang "$(asdf list all golang | grep -E '^[0-9]+(\.[0-9]+){1,2}$' | sort -V | tail -n 1)"
 
-asdf plugin add python
+ensure_asdf_plugin python
 asdf install python "$(asdf list all python | grep -E '^3\.13(\.[0-9]+){0,1}$' | sort -V | tail -n 1)"
 asdf set -u python "$(asdf list all python | grep -E '^3\.13(\.[0-9]+){0,1}$' | sort -V | tail -n 1)"
 
-asdf plugin add uv
+ensure_asdf_plugin uv
 asdf install uv "$(asdf list all uv | grep -E '^[0-9]+(\.[0-9]+){0,2}$' | sort -V | tail -n 1)"
 asdf set -u uv "$(asdf list all uv | grep -E '^[0-9]+(\.[0-9]+){0,2}$' | sort -V | tail -n 1)"
 
-asdf plugin add java
+ensure_asdf_plugin java
 asdf install java "$(asdf list all java | grep '^liberica-8u' | sort -V | tail -n 1)"
 asdf install java "$(asdf list all java | grep '^liberica-11\.' | sort -V | tail -n 1)"
 asdf install java "$(asdf list all java | grep '^liberica-17\.' | sort -V | tail -n 1)"
@@ -178,10 +186,13 @@ asdf install java "$(asdf list all java | grep '^liberica-21\.' | sort -V | tail
 asdf install java "$(asdf list all java | grep '^liberica-25\.' | sort -V | tail -n 1)"
 asdf set -u java "$(asdf list all java | grep '^liberica-21\.' | sort -V | tail -n 1)"
 
-asdf plugin add perl
+ensure_asdf_plugin perl
 asdf install perl "$(asdf list all perl | grep -E '^[0-9]+(\.[0-9]+){1,2}$' | sort -V | tail -n 1)"
 asdf set -u perl "$(asdf list all perl | grep -E '^[0-9]+(\.[0-9]+){1,2}$' | sort -V | tail -n 1)"
 
+# brew install --cask codex
+# brew install --cask claude-code
+# brew install --cask copilot-cli
 # mkdir -p $HOME/Projects/local
 # mkdir -p $HOME/.minikube/certs
 # brew install gh glab minikube
