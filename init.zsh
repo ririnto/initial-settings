@@ -93,15 +93,15 @@ if [ -f "${ZIM_CONFIG_FILE}" ] && ([ ! -f "${ZIM_HOME}/init.zsh" ] || [ ! "${ZIM
   fi
 fi
 
-# If INTELLIJ_ENVIRONMENT_READER is set, the IDE handles environment initialization, so skip Zim initialization.
-if [ -z "$INTELLIJ_ENVIRONMENT_READER" ]; then
+# If INTELLIJ_ENVIRONMENT_READER is set, the IDE handles environment initialization, so initialize asdf instead.
+if [ -n "$INTELLIJ_ENVIRONMENT_READER" ]; then
+  if [ -f ~/.zim/modules/asdf/init.zsh ]; then
+    source ~/.zim/modules/asdf/init.zsh
+  fi
+else
   # If Zim is installed and init.zsh exists, source that script to initialize Zim modules and plugins.
   if [ -f "${ZIM_HOME}/init.zsh" ]; then
     source "${ZIM_HOME}/init.zsh"
-  fi
-else
-  if [ -f /Users/rinto/.zim/modules/asdf/init.zsh ]; then
-    source /Users/rinto/.zim/modules/asdf/init.zsh
   fi
 fi
 
