@@ -10,7 +10,7 @@ macOS 개발 환경 자동 설정 스크립트입니다.
 
 ## 주요 기능
 
-- **쉘 설정**: [Zimfw](https://github.com/zimfw/zimfw)와 [Powerlevel10k](https://github.com/romkatv/powerlevel10k) 테마를 사용하여 Zsh를 설정합니다.
+- **쉘 설정**: [Zimfw](https://github.com/zimfw/zimfw)와 [Starship](https://starship.rs/) 프롬프트를 사용하여 Zsh를 설정합니다.
 - **패키지 관리**: Homebrew를 설치하고 엄선된 CLI 도구 및 GUI 애플리케이션 목록을 설치합니다.
 - **버전 관리**: `asdf`를 사용하여 다음 언어들의 런타임 버전을 관리하도록 설정합니다:
   - Rust
@@ -71,7 +71,6 @@ Git이나 터미널 사용이 어렵다면 아래 링크에서 소스 코드를 
 
 - `init.zsh`: 메인 진입점 스크립트입니다.
 - `.zimrc`: Zim Zsh 프레임워크 설정 파일입니다.
-- `.p10k.zsh`: Powerlevel10k 프롬프트 설정 파일입니다.
 - `.profile`: 환경 변수 및 경로 설정 파일입니다.
 - `.default-cargo-crates`: 추적/설치할 Cargo 크레이트 목록입니다.
 

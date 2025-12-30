@@ -27,9 +27,6 @@ svgbob_cli
 xh
 EOF
 
-backup_if_exists "$HOME/.p10k.zsh"
-cp "$(dirname "$0")/.p10k.zsh" "$HOME/.p10k.zsh"
-
 backup_if_exists "$HOME/.profile"
 cat << "EOF" > "$HOME/.profile"
 # -*- coding: utf-8 -*-
@@ -53,7 +50,7 @@ zmodule joke/zim-minikube
 zmodule joke/zim-yq
 zmodule homebrew --if-ostype 'darwin*'
 zmodule ohmyzsh/ohmyzsh --root plugins/vim-interaction
-zmodule romkatv/powerlevel10k --use degit
+zmodule joke/zim-starship
 EOF
 
 mkdir -p "$HOME/.ssh"
@@ -65,14 +62,6 @@ if ! grep -q ".profile" "$HOME/.zprofile" 2>/dev/null; then
 cat >> "$HOME/.zprofile" << "EOF"
 if [ -f "$HOME/.profile" ]; then
   source "$HOME/.profile"
-fi
-EOF
-fi
-
-if ! grep -q "p10k-instant-prompt" "$HOME/.zshrc" 2>/dev/null; then
-cat >> "$HOME/.zshrc" << "EOF"
-if [ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 EOF
 fi
@@ -104,14 +93,6 @@ fi
 
 if command -v ccr &>/dev/null; then
   eval "$(ccr activate)"
-fi
-EOF
-fi
-
-if ! grep -q "p10k.zsh" "$HOME/.zshrc" 2>/dev/null; then
-cat >> "$HOME/.zshrc" << "EOF"
-if [ -f "$HOME/.p10k.zsh" ]; then
-  source "$HOME/.p10k.zsh"
 fi
 EOF
 fi

@@ -10,7 +10,7 @@ This project provides a shell script (`init.zsh`) to bootstrap a new macOS machi
 
 ## Features
 
-- **Shell Configuration**: Sets up Zsh with [Zimfw](https://github.com/zimfw/zimfw) and [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme.
+- **Shell Configuration**: Sets up Zsh with [Zimfw](https://github.com/zimfw/zimfw) and [Starship](https://starship.rs/) prompt.
 - **Package Management**: Installs Homebrew and a curated list of CLI tools and GUI applications.
 - **Version Management**: Configures `asdf` for managing runtime versions of:
   - Rust
@@ -71,7 +71,6 @@ If you prefer, download the source code from the link below and extract it, then
 
 - `init.zsh`: The main entry point script.
 - `.zimrc`: Configuration for the Zim Zsh framework.
-- `.p10k.zsh`: Configuration for the Powerlevel10k prompt.
 - `.profile`: Environment variables and path settings.
 - `.default-cargo-crates`: List of Cargo crates to be tracked/installed.
 
