@@ -39,14 +39,14 @@ This project provides a shell script (`init.zsh`) to bootstrap a new macOS machi
 
 ### 1. Download Project
 
-**Option A: Using Git (Recommended)**
+#### Option A: Using Git (Recommended)
 
 ```zsh
 git clone https://github.com/ririnto/initial-settings.git
 cd initial-settings
 ```
 
-**Option B: Download via Terminal**
+#### Option B: Download via Terminal
 
 ```zsh
 curl -L -o initial-settings.zip https://github.com/ririnto/initial-settings/archive/refs/heads/main.zip
@@ -54,7 +54,8 @@ unzip initial-settings.zip
 cd initial-settings-main
 ```
 
-**Option C: Manual Download**
+#### Option C: Manual Download
+
 If you prefer, download the source code from the link below and extract it, then navigate to the folder.
 
 - [Source Code (ZIP)](https://github.com/ririnto/initial-settings/archive/refs/heads/main.zip)
@@ -78,3 +79,102 @@ If you prefer, download the source code from the link below and extract it, then
 
 - macOS (Apple Silicon or Intel)
 - Internet connection (for downloading packages)
+
+## VSCode Terminal Optimization
+
+When using GitHub Copilot, long terminal inputs may cause VSCode terminal to freeze. The following settings can resolve this issue.
+
+### Automatic Configuration (Recommended)
+
+You can automatically apply the recommended settings using a Python script:
+
+#### Option 1: Using VSCode Task
+
+1. In VSCode, press `Cmd+Shift+P` → "Tasks: Run Task"
+2. Select "VSCode 터미널 최적화 설정 적용"
+3. Follow the instructions to apply settings
+
+#### Option 2: Run Directly in Terminal
+
+```zsh
+python3 configure-vscode-terminal.py
+```
+
+> **Note**: Existing settings are automatically backed up to `~/Library/Application Support/Code/Backups/`
+
+### Manual Configuration
+
+You can also add settings directly to VSCode settings file (`settings.json`).
+
+Open settings file: `Cmd+Shift+P` → "Preferences: Open User Settings (JSON)"
+
+#### Basic Settings (Most Cases)
+
+```json
+{
+  "terminal.integrated.localEchoEnabled": false,
+  "terminal.integrated.shellIntegration.enabled": false,
+  "terminal.integrated.scrollback": 10000
+}
+```
+
+#### Additional Settings for Severe Issues
+
+```json
+{
+  "terminal.integrated.enablePersistentSessions": false
+}
+```
+
+### Key Settings Explanation
+
+| Setting                        | Recommended Value | Description                                                                                                                   |
+| ------------------------------ | ----------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **`localEchoEnabled`**         | `false`           | Disables terminal input prediction. Prevents conflicts between local prediction and actual server response during long inputs |
+| **`shellIntegration.enabled`** | `false`           | Disables VSCode-shell integration. Removes processing overhead during PTY interaction                                         |
+| **`scrollback`**               | `10000`           | Increases terminal history buffer size for preserving more output lines. May affect rendering performance with large outputs  |
+| **`enablePersistentSessions`** | `false`           | Disables session persistence. Prevents complex state management conflicts during restoration                                  |
+
+### Quick Temporary Solutions
+
+- **Clear terminal**: `Cmd+K`
+- **Open new terminal**: `Cmd+Shift+\``
+- **Restart VSCode**: Recommended after changing settings
+
+## IntelliJ Terminal Optimization
+
+Similar terminal freezing issues may occur in IntelliJ IDEA and JetBrains IDEs.
+
+### Terminal Settings
+
+Open Preferences/Settings: `Cmd+,` (macOS)
+
+`Preferences` → `Tools` → `Terminal`:
+
+| Option                     | Recommended Setting | Description                                                                          |
+| -------------------------- | ------------------- | ------------------------------------------------------------------------------------ |
+| **Shell integration**      | Uncheck             | Disables IDE-shell integration. Removes processing overhead during long input/output |
+| **Override IDE shortcuts** | Uncheck (optional)  | Prevents IDE shortcut redefinition. Reduces conflicts with terminal's own shortcuts  |
+| **Audible bell**           | Uncheck             | Disables bell sound. Prevents UI interruption from unnecessary notifications         |
+
+### Using External Terminal
+
+`Preferences` → `Tools` → `Terminal`:
+
+- **Shell path**: Use actual shell path (e.g., `/bin/zsh` or `/bin/bash`)
+
+To open terminal in an external application:
+
+- Right-click on terminal tab → "Open in Terminal" (may vary by IDE version)
+
+### Key Configuration File Locations
+
+IntelliJ settings are stored as XML files.
+
+Location: `~/Library/Application Support/JetBrains/<Product><Version>/options/`
+
+Example configuration files (may vary by product/version):
+
+- `terminal.xml` - Terminal settings
+- `editor.xml` - Editor settings
+- `ide.general.xml` - General IDE settings
