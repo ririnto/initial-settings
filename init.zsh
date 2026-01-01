@@ -125,6 +125,8 @@ fi
 brew install asdf ast-grep bandwhich bat coreutils curl difftastic dust fd fzf git httpie hwatch jq mas openssl readline rename ripgrep-all sqlite3 xz yq zimfw zsh
 brew install --cask docker google-chrome httpie-desktop jetbrains-toolbox visual-studio-code
 
+git config --global core.pager cat
+
 . "$HOMEBREW_PREFIX/opt/asdf/libexec/asdf.sh"
 
 ensure_asdf_plugin() {
