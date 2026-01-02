@@ -124,7 +124,9 @@ if ! command -v brew &>/dev/null; then
   eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 fi
 
-brew install asdf ast-grep bandwhich bash bat coreutils curl difftastic diffutils dust fd findutils fzf gawk git gnu-getopt gnu-sed gnu-tar grep httpie hwatch jq mas moreutils openssl readline rename ripgrep-all sqlite3 xz yq zimfw zsh
+brew install bash coreutils diffutils findutils gawk gnu-getopt gnu-sed gnu-tar grep
+brew install asdf bat curl dust fd fzf git jq moreutils openssl readline ripgrep-all sqlite3 xz yq
+brew install ast-grep bandwhich difftastic httpie hwatch mas rename zimfw zsh
 brew install --cask docker google-chrome httpie-desktop jetbrains-toolbox visual-studio-code
 
 git config --global core.pager cat
