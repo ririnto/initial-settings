@@ -94,6 +94,8 @@ fi
 if command -v ccr &>/dev/null; then
   eval "$(ccr activate)"
 fi
+
+alias sed=gsed
 EOF
 fi
 
@@ -122,7 +124,7 @@ if ! command -v brew &>/dev/null; then
   eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
 fi
 
-brew install asdf ast-grep bandwhich bat coreutils curl difftastic dust fd fzf git httpie hwatch jq mas openssl readline rename ripgrep-all sqlite3 xz yq zimfw zsh
+brew install asdf ast-grep bandwhich bat coreutils curl difftastic dust fd fzf git gnu-sed httpie hwatch jq mas openssl readline rename ripgrep-all sqlite3 xz yq zimfw zsh
 brew install --cask docker google-chrome httpie-desktop jetbrains-toolbox visual-studio-code
 
 git config --global core.pager cat
