@@ -183,3 +183,13 @@ Example files (may vary by product/version):
 - `terminal.xml` - Terminal settings
 - `editor.xml` - Editor settings
 - `ide.general.xml` - General IDE settings
+
+## Developer workflow
+
+1. `python3 -m venv .venv` *(recreate if the folder is deleted).*
+2. `.venv/bin/pip install -e ".[dev]"` to install `ruff`, `pyright`, `pytest`, and `coverage` per `pyproject.toml`.
+3. `.venv/bin/ruff check configure-vscode-terminal.py tests` for linting.
+4. `.venv/bin/pyright` for type checks.
+5. `.venv/bin/coverage run -m pytest` to execute tests and collect coverage.
+6. `.venv/bin/coverage report` to inspect coverage metrics (target ≥90% on the CLI).
+7. Only rerun `python3 configure-vscode-terminal.py` when you want to change your real VS Code settings.

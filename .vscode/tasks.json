@@ -2,7 +2,7 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "VSCode 터미널 최적화 설정 적용",
+      "label": "Apply VSCode terminal optimization",
       "type": "shell",
       "command": "python3",
       "args": [

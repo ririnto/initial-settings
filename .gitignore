@@ -1,0 +1,17 @@
+.idea/
+__pycache__/
+.DS_Store
+*.py[cod]
+*.so
+Thumbs.db
+desktop.ini
+.venv/
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+*.egg-info/
