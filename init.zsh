@@ -127,7 +127,7 @@ fi
 brew install bash coreutils diffutils findutils gawk gnu-getopt gnu-sed gnu-tar grep
 brew install asdf bat curl dust fd fzf git jq moreutils openssl readline ripgrep-all sqlite3 xz yq
 brew install ast-grep bandwhich difftastic gitmoji httpie hwatch markdownlint-cli2 mas rename zimfw zsh
-brew install --cask docker google-chrome httpie-desktop jetbrains-toolbox visual-studio-code
+brew install --cask docker google-chrome httpie-desktop jetbrains-toolbox visual-studio-code iterm2
 
 git config --global core.pager cat
 
