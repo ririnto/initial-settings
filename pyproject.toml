@@ -1,0 +1,63 @@
+[project]
+name = "initial-settings"
+version = "0.1.0"
+description = "macOS development environment bootstrapper with shell and editor helpers."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+  {name = "ririnto", email = "ririnto@example.com"},
+]
+
+[project.optional-dependencies]
+dev = [
+  "coverage>=7.5",
+  "pyright>=1.1.341",
+  "pytest>=8.0",
+  "ruff>=0.0.295",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = [
+  ".git",
+  ".serena/cache",
+  ".venv",
+  "__pycache__",
+  "build",
+  "dist",
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.coverage.run]
+branch = true
+source = ["."]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+exclude_lines = [
+  "pragma: no cover",
+  "def __repr__",
+  "if TYPE_CHECKING",
+]
+
+[tool.pyright]
+include = [
+  "configure-vscode-terminal.py",
+  "tests"
+]
+pythonVersion = "3.11"
+venvPath = "."
+venv = ".venv"
+reportMissingTypeStubs = false
+reportMissingImports = false

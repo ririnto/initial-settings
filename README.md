@@ -180,3 +180,13 @@ IntelliJ 설정은 XML 파일로 저장됩니다.
 - `terminal.xml` - 터미널 설정
 - `editor.xml` - 에디터 설정
 - `ide.general.xml` - 일반 IDE 설정
+
+## Developer workflow
+
+1. `python3 -m venv .venv` *(already created; rerun if you delete the folder).*
+2. `.venv/bin/pip install -e ".[dev]"` installs `ruff`, `pyright`, `pytest`, and `coverage` per `pyproject.toml`.
+3. `.venv/bin/ruff check configure-vscode-terminal.py tests` for linting.
+4. `.venv/bin/pyright` for type checks.
+5. `.venv/bin/coverage run -m pytest` to execute tests and collect coverage.
+6. `.venv/bin/coverage report` to inspect coverage metrics (aim for ≥90% on the CLI).
+7. Rerun `python3 configure-vscode-terminal.py` only when you want to update your actual VS Code settings.

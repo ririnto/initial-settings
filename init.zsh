@@ -188,3 +188,5 @@ asdf set -u perl "$(asdf list all perl | grep -E '^[0-9]+(\.[0-9]+){1,2}$' | sor
 # brew install gh glab minikube
 # minikube start --embed-certs
 # wget -O $HOME/Downloads/Ollama.dmg https://ollama.com/download/Ollama.dmg
+
+sudo xattr -dr com.apple.quarantine ~/.cache/uv
