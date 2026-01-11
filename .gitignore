@@ -1,17 +1,24 @@
-.idea/
+# Byte-compiled / cache
 __pycache__/
-.DS_Store
 *.py[cod]
-*.so
-Thumbs.db
-desktop.ini
-.venv/
-.coverage
-coverage.xml
-htmlcov/
+
+# Distribution / packaging
+*.egg-info/
+
+# Tool caches
 .pytest_cache/
 .ruff_cache/
 .mypy_cache/
-build/
-dist/
-*.egg-info/
+
+# Coverage artifacts
+.coverage
+coverage.xml
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+
+# Editor artifacts
+.idea/
+.vscode/
