@@ -192,8 +192,9 @@ VS Code 확장은 `code --install-extension` 명령으로 설치한다.
 | 8 | redhat.vscode-yaml | `code --install-extension redhat.vscode-yaml` | YAML 언어 지원 및 Kubernetes syntax 지원 |
 | 9 | rust-lang.rust-analyzer | `code --install-extension rust-lang.rust-analyzer` | Rust 언어 지원 |
 | 10 | vscjava.vscode-java-pack | `code --install-extension vscjava.vscode-java-pack` | Java IntelliSense, debugging, testing, Maven/Gradle 지원 |
-| 11 | vmware.vscode-boot-dev-pack | `code --install-extension vmware.vscode-boot-dev-pack` | Spring Boot 애플리케이션 개발 지원 |
-| 12 | Kotlin LSP | `code --install-extension path/to/kotlin-lsp.vsix` | [Kotlin/kotlin-lsp](https://github.com/Kotlin/kotlin-lsp) 릴리스의 VSIX 설치 |
+| 11 | richardwillis.vscode-spotless-gradle | `code --install-extension richardwillis.vscode-spotless-gradle` | Gradle Spotless 기반 소스 포맷 |
+| 12 | vmware.vscode-boot-dev-pack | `code --install-extension vmware.vscode-boot-dev-pack` | Spring Boot 애플리케이션 개발 지원 |
+| 13 | Kotlin LSP | `code --install-extension path/to/kotlin-lsp.vsix` | [Kotlin/kotlin-lsp](https://github.com/Kotlin/kotlin-lsp) 릴리스의 VSIX 설치 |
 
 Kotlin LSP의 VS Code 확장은 Marketplace ID 기반 설치가 공식 문서에 명시되어 있지 않으므로, 릴리스에서 VSIX를 내려받아 설치한다.
 
