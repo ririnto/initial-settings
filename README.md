@@ -97,6 +97,12 @@ Python을 asdf로 설치하기 전에 빌드에 필요한 Homebrew 의존성을 
 | ripgrep | `brew install ripgrep` | 빠른 파일/텍스트 검색 |
 | kotlin-lsp | `brew install JetBrains/utils/kotlin-lsp` | Kotlin Language Server |
 
+Git 저장소 초기화 시 기본 브랜치가 `main`이 되도록 전역 설정한다.
+
+```sh
+git config --global init.defaultBranch main
+```
+
 ### asdf
 
 #### 플러그인 추가
